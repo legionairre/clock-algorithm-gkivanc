@@ -9,15 +9,15 @@ import { AppState } from './app.state';
 })
 export class AppComponent {
 
-  private searchKey = '';
-  private charFrames = [];
-  private frames = [];
-  private pointer = 0;
-  private arrow1 = true;
-  private arrow2 = false;
-  private arrow3 = false;
-  private arrow4 = false;
-  private found = true;
+  public searchKey = '';
+  public charFrames = [];
+  public frames = [];
+  public pointer = 0;
+  public arrow1 = true;
+  public arrow2 = false;
+  public arrow3 = false;
+  public arrow4 = false;
+  public found = true;
 
   constructor(
     private service: ClockService,
