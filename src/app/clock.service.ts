@@ -17,17 +17,17 @@ export class ClockService {
 
   constructor(private http: HttpClient, private state: AppState) {
     this.pointer = 0;
-    this.initializeFrameReferenceBits();
-    this.initializeFrameInput();
+    this.initFrameBits();
+    this.initFrameInput();
   }
 
-  private initializeFrameReferenceBits() {
+  private initFrameBits() {
     for (let i = 0; i < this.count; i++) {
       this.frames[i] = null;
     }
   }
 
-  private initializeFrameInput() {
+  private initFrameInput() {
     for (let i = 0; i < this.count; i++) {
       this.charFrame[i] = ' ';
     }
@@ -46,7 +46,7 @@ export class ClockService {
     return promise;
   }
 
-  public getAccessInputFromDisk() {
+  public searchFromDisk() {
     let record = '';
     let isFound = false;
     let dataList = [];
@@ -62,24 +62,24 @@ export class ClockService {
         if(this.isFindInitialize) {
           this.charFrame[this.pointer] = this.inputKey;
           this.frames[this.pointer] = 0;
-          this.completeCircleRestart();
+          this.completeLoop();
           this.state.setFound(isFound);
         } else {
           this.charFrame[this.diskPosition] = this.inputKey;
           this.pointer = this.diskPosition;
-          this.completeCircleRestart();
+          this.completeLoop();
           this.state.setFound(isFound);
         }
       } else {
         this.state.setFound(isFound);
-        this.printCurrentBufferPool();
+        this.setAppState();
         return;
       }
-      this.printCurrentBufferPool();
+      this.setAppState();
     });
   }
 
-  private checkAccessCharacterIsInBufferAlready() {
+  private checkIsInBuffer() {
     this.isFound = false;
     for (let i = 0; i < this.count; i++) {
       if (this.charFrame[i].indexOf(this.inputKey) !== -1) {
@@ -92,7 +92,7 @@ export class ClockService {
     return false;
   }
 
-  private completeCircleRestart() {
+  private completeLoop() {
     if (this.pointer == this.count - 1) {
       this.pointer = 0;
     } else {
@@ -101,7 +101,7 @@ export class ClockService {
     this.state.setIterationPointer(this.pointer);
   }
 
-  private findReplacementPosition() {
+  private replacementPosition() {
     this.isFound = false;
     let i = 0;
     let temp = this.pointer;
@@ -140,12 +140,12 @@ export class ClockService {
     return this.pointer;
   }
 
-  private printCurrentBufferPool() {
+  private setAppState() {
     this.state.setCharFrames(this.charFrame);
     this.state.setFrames(this.frames);
   }
 
-  private findUninitializedPosition() {
+  private notInPosition() {
     this.isFound = false;
     let foundPosition = null;
     for (let i = this.pointer; i < this.count; i++) {
@@ -159,16 +159,16 @@ export class ClockService {
 
   public clockReplacement(inputKey) {
     this.inputKey = inputKey;
-    if (this.checkAccessCharacterIsInBufferAlready()) {
-      this.printCurrentBufferPool();
-    } else if (this.findUninitializedPosition() != null) {
-      this.pointer = this.findUninitializedPosition();
+    if (this.checkIsInBuffer()) {
+      this.setAppState();
+    } else if (this.notInPosition() != null) {
+      this.pointer = this.notInPosition();
       this.isFindInitialize = true;
-      this.getAccessInputFromDisk();
+      this.searchFromDisk();
     } else {
-      this.diskPosition = this.findReplacementPosition();
+      this.diskPosition = this.replacementPosition();
       this.isFindInitialize = false;
-      this.getAccessInputFromDisk();
+      this.searchFromDisk();
     }
   }
 

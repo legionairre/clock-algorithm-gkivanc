@@ -1,6 +1,7 @@
 # ClockAlgorithm
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
+Click for [demo](https://clock-algorithm-gkivanc.herokuapp.com/)
 
 ## Development server
 
