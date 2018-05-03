@@ -1,1 +1,76 @@
 /* You can add global styles to this file, and also import other style files */
+
+.top-block {
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  width: 55px;
+  height:50px;
+  padding:10px;
+  background-color:#eceadc;
+  color:#ec8007
+}
+
+.right-block {
+  position: absolute;
+  left: 70%;
+  right: 30%;
+  top: 55%;
+  width: 55px;
+  height:50px;
+  padding:10px;
+  background-color:#eceadc;
+  color:#ec8007
+}
+
+.bottom-block {
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  bottom: 15%;
+  width: 55px;
+  height:50px;
+  padding:10px;
+  background-color:#eceadc;
+  color:#ec8007
+}
+
+.left-block {
+  position: absolute;
+  left: 30%;
+  right: 70%;
+  top: 55%;
+  width: 55px;
+  height:50px;
+  padding:10px;
+  background-color:#eceadc;
+  color:#ec8007
+}
+
+.top-arrow {
+  position: absolute;
+  left: 49%;
+  top: 40%;
+}
+
+.right-arrow {
+  position: absolute;
+  left: 62%;
+  top: 50%;
+}
+
+.bottom-arrow {
+  position: absolute;
+  left: 49%;
+  bottom: 19%;
+}
+
+.left-arrow {
+  position: absolute;
+  left: 36%;
+  top: 50%;
+}
+
+.jumbotron {
+  background-color: #fff !important;
+}
